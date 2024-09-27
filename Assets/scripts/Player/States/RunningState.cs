@@ -12,11 +12,13 @@ namespace Player
 
         public override void Enter()
         {
+            player.animator.Play("arthur_run", 0, 0);
             base.Enter();
         }
 
         public override void Exit()
         {
+
             base.Exit();
         }
 
@@ -30,10 +32,15 @@ namespace Player
             base.LogicUpdate();
             player.CheckForIdle();
             Debug.Log("checking for idle");
+
+            player.CheckForJump();
+            Debug.Log("checking for jump");
+            base.LogicUpdate();
         }
 
         public override void PhysicsUpdate()
         {
+            player.transform.position = new Vector2(player.transform.position.x - (player.speed * Time.deltaTime), player.transform.position.y);
             base.PhysicsUpdate();
         }
     }

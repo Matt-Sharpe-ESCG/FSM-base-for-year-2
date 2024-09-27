@@ -1,17 +1,18 @@
 
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 namespace Player
 {
-    public class IdleState : State
+    public class ThrowState : State
     {
         // constructor
-        public IdleState(PlayerScript player, StateMachine sm) : base(player, sm)
+        public ThrowState(PlayerScript player, StateMachine sm) : base(player, sm)
         {
         }
 
         public override void Enter()
         {
-            player.animator.Play("arthur_stand", 0, 0);
+            player.animator.Play("arthur_shoot_forward", 0, 0);
             base.Enter();
         }
 
@@ -28,10 +29,16 @@ namespace Player
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            player.CheckForRun();
+            player.CheckForIdle();
+            Debug.Log("checking for idle");
+
             player.CheckForJump();
+            Debug.Log("checking for jump");
+            base.LogicUpdate();
+
             player.CheckForCrouch();
-            player.CheckForThrow();
+            Debug.Log("check for crouch");
+            base.LogicUpdate();
         }
 
         public override void PhysicsUpdate()

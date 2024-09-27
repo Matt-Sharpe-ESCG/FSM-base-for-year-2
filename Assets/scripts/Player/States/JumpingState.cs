@@ -1,17 +1,17 @@
 
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 namespace Player
 {
-    public class IdleState : State
+    public class JumpingState : State
     {
-        // constructor
-        public IdleState(PlayerScript player, StateMachine sm) : base(player, sm)
+        public JumpingState(PlayerScript player, StateMachine sm) : base(player, sm)
         {
-        }
 
+        }
         public override void Enter()
         {
-            player.animator.Play("arthur_stand", 0, 0);
+            player.animator.Play("arthur_jump_up", 0, 0);
             base.Enter();
         }
 
@@ -27,15 +27,13 @@ namespace Player
 
         public override void LogicUpdate()
         {
+            player.CheckForIdle();
             base.LogicUpdate();
-            player.CheckForRun();
-            player.CheckForJump();
-            player.CheckForCrouch();
-            player.CheckForThrow();
         }
 
         public override void PhysicsUpdate()
         {
+            player.rb.velocityY = 4;
             base.PhysicsUpdate();
         }
     }
